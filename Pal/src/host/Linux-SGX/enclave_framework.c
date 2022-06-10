@@ -610,7 +610,7 @@ static int register_file(const char* uri, const char* hash_str, bool check_dupli
     if (hash_str) {
         assert(strlen(hash_str) == sizeof(sgx_file_hash_t) * 2);
 
-        char* bytes = hex2bytes(hash_str, strlen(hash_str) + 1, new->file_hash.bytes,
+        char* bytes = hex2bytes(hash_str, strlen(hash_str), new->file_hash.bytes,
                                 sizeof(new->file_hash.bytes));
         if (!bytes) {
             log_error("Could not parse hash of file: %s", uri);

@@ -567,7 +567,7 @@ int _DkAttestationQuote(const void* user_report_data, size_t user_report_data_si
             return -PAL_ERROR_INVAL;
         }
 
-        char* bytes = hex2bytes(ra_client_spid_str, strlen(ra_client_spid_str) + 1, spid,
+        char* bytes = hex2bytes(ra_client_spid_str, strlen(ra_client_spid_str), spid,
                                 sizeof(spid));
         if (!bytes) {
             log_error("Malformed 'sgx.ra_client_spid' value in the manifest: %s",

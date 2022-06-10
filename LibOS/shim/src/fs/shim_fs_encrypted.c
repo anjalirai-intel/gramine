@@ -205,7 +205,7 @@ int parse_pf_key(const char* key_str, pf_key_t* pf_key) {
     }
 
     pf_key_t tmp_pf_key;
-    char* bytes = hex2bytes(key_str, len + 1, tmp_pf_key, sizeof(tmp_pf_key));
+    char* bytes = hex2bytes(key_str, len, tmp_pf_key, sizeof(tmp_pf_key));
     if (!bytes) {
         log_warning("%s: unexpected character encountered", __func__);
         return -EINVAL;
