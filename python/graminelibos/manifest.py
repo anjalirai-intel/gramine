@@ -171,7 +171,8 @@ class Manifest:
         """
         trusted_files = []
         expanded = []
-        for tf in self['sgx']['trusted_files']:
+        trusted_list = self.get_unique_trusted_file_list()
+        for tf in trusted_list:
             append_trusted_dir_or_file(trusted_files, tf, expanded)
 
         self['sgx']['trusted_files'] = trusted_files
@@ -196,3 +197,18 @@ class Manifest:
                 deps.add(uri2path(tf['uri']))
 
         return deps
+
+    def get_unique_trusted_file_list(self):
+        """ Generates a unique list of sgx trusted files
+
+        Returns:
+            Unique list of sgx trusted files
+        """
+        trusted_list = []
+        uri_list = list(set([t_f["uri"] for t_f in self['sgx']['trusted_files']]))
+        for uri in uri_list:
+            for t_f in self['sgx']['trusted_files']:
+                if t_f["uri"] == uri:
+                    trusted_list.append(t_f)
+                    break
+        return trusted_list
