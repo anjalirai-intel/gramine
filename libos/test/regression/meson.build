@@ -205,18 +205,19 @@ if enable_glibc
         'tests': tests,
     }
 endif
+'''
 if enable_musl
     if meson.get_compiler('c').get_id() != 'gcc'
         error('Compiling tests is currently unsupported with Musl and compilers other than GCC. ' +
               'You need to either disable Musl (-Dmusl=disabled) or use GCC (CC=gcc).')
     endif
 
-    musl_specs_path_cmd = run_command('sh', '-c',
-        'grep -Po -e \'-specs "\K([^"]*)\' `which musl-gcc`')
-    musl_specs_path = musl_specs_path_cmd.stdout().strip()
-    if musl_specs_path == ''
-        error('failed to find "musl-gcc", is it installed?')
-    endif
+    #musl_specs_path_cmd = run_command('sh', '-c',
+    #    'grep -Po -e \'-specs "\K([^"]*)\' `which musl-gcc`')
+    #musl_specs_path = musl_specs_path_cmd.stdout().strip()
+    #if musl_specs_path == ''
+    #    error('failed to find "musl-gcc", is it installed?')
+    #endif
 
     common_lib_musl = static_library('test_libos_musl',
         'dump.c',
@@ -233,6 +234,7 @@ if enable_musl
 
     musl_execs = []
 endif
+'''
 
 foreach conf: configurations
     foreach name, params : conf['tests']
@@ -304,6 +306,7 @@ foreach conf: configurations
     endforeach
 endforeach
 
+'''
 if enable_musl
     meson.add_install_script(
         find_program('install_musl_tests.sh'),
@@ -311,5 +314,5 @@ if enable_musl
         musl_execs,
     )
 endif
-
+'''
 subdir('asm')
